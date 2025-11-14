@@ -7,6 +7,11 @@ let app=express();
 app.use(cors());
 app.use(express.json());
 app.use('/api/website/enquiry',enquiryRoute)
+
+// Root status route for Render
+app.get('/', (req, res) => {
+    res.send({ status: 1, message: 'UserEnquiry API is running' });
+});
 mongoose.connect(process.env.DBURL).then(()=>{
     console.log("DB connected");
     app.listen(process.env.PORT || 3000);
