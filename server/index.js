@@ -1,0 +1,15 @@
+let express=require('express');
+let mongoose=require('mongoose');
+let cors=require('cors');
+const enquiryRoute=require('./App/routes/web/enquiryRoute');
+require('dotenv').config();
+let app=express();
+app.use(cors());
+app.use(express.json());
+app.use('/api/website/enquiry',enquiryRoute)
+mongoose.connect(process.env.DBURL).then(()=>{
+    console.log("DB connected");
+    app.listen(process.env.PORT || 3000);
+}).catch((err)=>{
+    console.log("DB connection failed", err);
+});
