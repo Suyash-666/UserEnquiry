@@ -1,11 +1,11 @@
-import axios from "axios";
+import api from "./api";
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
 import { toast } from "react-toastify";
 
 
 function EnquiryList({data,getAllEnquiry,setFormData}) {
     let deleteRow=(delId)=>{
-        axios.delete(`http://localhost:3000/api/website/enquiry/delete/${delId}`).then(()=>{
+        api.delete(`/api/website/enquiry/delete/${delId}`).then(()=>{
             toast.success("Enquiry deleted successfully!");
             getAllEnquiry();
         }).catch((err)=>{
@@ -13,7 +13,7 @@ function EnquiryList({data,getAllEnquiry,setFormData}) {
         });
     }
 let editRow = (editId) => {
-   axios.get(`http://localhost:3000/api/website/enquiry/single/${editId}`)
+  api.get(`/api/website/enquiry/single/${editId}`)
      .then((res) => {
        let data = res.data;
        if (data.status && data.enquiryData) {

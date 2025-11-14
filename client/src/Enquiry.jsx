@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "./api";
 import { Button ,Label,Textarea,TextInput} from "flowbite-react";
 import{ToastContainer,toast} from "react-toastify";
 import EnquiryList from "./EnquiryList.jsx";
@@ -20,7 +20,7 @@ function Enquiry() {
 
     const getAllEnquiry = async () => {
         try {
-            const res = await axios.get("http://localhost:3000/api/website/enquiry/view");
+            const res = await api.get("/api/website/enquiry/view");
             const finalData = res.data;
             if (finalData.status) {
                 setEnquiryList(finalData.enquiryList);
@@ -34,7 +34,7 @@ function Enquiry() {
             e.preventDefault();
             if(formData._id){
                 // Update existing enquiry
-                axios.put(`http://localhost:3000/api/website/enquiry/update/${formData._id}`, formData)
+                api.put(`/api/website/enquiry/update/${formData._id}`, formData)
                     .then(() => {
                         toast.success("Enquiry updated successfully!"); 
                         setFormData({
@@ -52,7 +52,7 @@ function Enquiry() {
                     });
             } else {
                 // Insert new enquiry
-                axios.post("http://localhost:3000/api/website/enquiry/insert", formData)
+                api.post("/api/website/enquiry/insert", formData)
                     .then(() => {
                         toast.success("Enquiry submitted successfully!"); 
                         setFormData({
@@ -73,7 +73,7 @@ function Enquiry() {
       let isMounted = true;
       const fetchEnquiries = async () => {
         try {
-          const res = await axios.get("http://localhost:3000/api/website/enquiry/view");
+          const res = await api.get("/api/website/enquiry/view");
           const finalData = res.data;
           if (isMounted && finalData.status) {
             setEnquiryList(finalData.enquiryList);
