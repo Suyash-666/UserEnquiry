@@ -4,7 +4,17 @@ let cors=require('cors');
 const enquiryRoute=require('./App/routes/web/enquiryRoute');
 require('dotenv').config();
 let app=express();
-app.use(cors());
+
+// CORS configuration for GitHub Pages and local dev
+app.use(cors({
+    origin: [
+        'http://localhost:5173',
+        'http://localhost:3000',
+        'https://suyash-666.github.io'
+    ],
+    credentials: true
+}));
+
 app.use(express.json());
 app.use('/api/website/enquiry',enquiryRoute)
 
